@@ -23,6 +23,9 @@ CACHE_ENTRIES = {
     "CMAKE_C_FLAGS": C_FLAGS,
     "HDF5_BUILD_EXAMPLES": False,
     "HDF5_BUILD_TOOLS": False,
+    "HDF5_ENABLE_Z_LIB_SUPPORT": True,
+    "ZLIB_INCLUDE_DIR": "${EXT_BUILD_DEPS}/z_lib/include",
+    "ZLIB_LIBRARY": "${EXT_BUILD_DEPS}/z_lib/lib/libz.a",
 }
 
 CACHE_ENTRIES_WASM = dict(CACHE_ENTRIES.items() + {
@@ -40,6 +43,9 @@ cmake_lib(
         "//config:wasm": CACHE_ENTRIES_WASM,
         "//conditions:default": CACHE_ENTRIES,
     },
+    deps = [
+        "//lib/z",
+    ],
 )
 
 bzl_library(
